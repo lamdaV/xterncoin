@@ -15,13 +15,13 @@ Right now, XternCoin is just an idea and a small spec.
 Your job, should you choose to accept it, is to advance the creation of XternCoin in a way that best fits your background and skillset. Pick one of the sections below based upon the role you are applying for in Xtern. If your role isn't listed verbatim, read over them all and try your hand at something similar, or contact TechPoint (talent@techpoint.org) for more help.
 
 # Requirements
-func HandleGuess(userId string, guess int) bool {} (Server Code)
+func HandleGuess(userId string, guess int) bool {} (Server Code)  
 Function which takes a user's id and a user's guess, and returns whether or not their guess was correct.
 
-func GetCoins(userId string) int {} (Server Code)
+func GetCoins(userId string) int {} (Server Code)  
 Function which takes a userid and returns how many coins they have.
 **Note:** this is unused as a guess will already return how many coins the user has regardless of success or failure of guesses.
 
 Finally, one more function is required:
-func StartGuessing() {} (Client Code)
+func StartGuessing() {} (Client Code)  
 A function which, when called, pretends to be a user of XternCoin and uses the other two functions you've written to accumulate coins by guessing random numbers in a loop (indefinite is fine) fasdf.
