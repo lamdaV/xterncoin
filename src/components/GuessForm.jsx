@@ -8,7 +8,7 @@ class GuessForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: "",           
+      userId: "",
       guess: "",
       status: true,
       guessStatus: null,
@@ -116,7 +116,7 @@ class GuessForm extends Component {
   */
   startGuessing(event) {
     event.preventDefault();
-    if (this.state.userId === "") {
+    if (this.validateUserId() !== "success") {
       this.setState({status: false});
       return;
     }
