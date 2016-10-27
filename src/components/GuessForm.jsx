@@ -31,11 +31,16 @@ class GuessForm extends Component {
 
   /*
     Evaluates if a given value is an integer.
+
+    Source: https://stackoverflow.com/questions/14636536/how-to-check-if-a-variable-is-an-integer-in-javascript
   */
   isInt(value) {
+    if (isNaN(value)) {
+      return false;
+    }
     var x = parseFloat(value);
-    return !isNaN(value) && (x | 0) === x;
-  }
+    return (x | 0) === x;
+}
 
   /*
     Validates if the UserId input box is an integer.
