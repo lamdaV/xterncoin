@@ -53,9 +53,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 /*
   Get the number of coins the user has.
+  Ideally be called in a post method. The post method would then build up
+  response to send.
 */
 function getCoins(userId) {
-  console.log(bank[userId]);
+  if (!bank[userId]) {
+    console.log("This user does not exist");
+    return;
+  }
+  console.log("Coins: " + bank[userId]);
   return bank[userId];
 }
 
