@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Button, FormGroup, FormControl, ControlLabel, Jumbotron, ListGroup, ListGroupItem} from "react-bootstrap";
 import GuessActions from "../actions/GuessActions.jsx";
 import GuessStore from "../stores/GuessStore.jsx";
-var rn = require("random-number"); // does not support es6.
 
 class GuessForm extends Component {
   constructor(props) {
@@ -14,7 +13,9 @@ class GuessForm extends Component {
       guessStatus: null,
       coins: 0,
       intervalId: null,
-      automation: false
+      automation: false,
+      guesses: [],
+      nextGuess: 0
     };
 
     this.validateUserId = this.validateUserId.bind(this);
@@ -101,9 +102,11 @@ class GuessForm extends Component {
     }
 
     // Set the status and send a post request.
-    this.setState({status: true});
     var userId = this.state.userId;
     var guess = this.state.guess;
+    var guesses = this.state.guesses;
+    guesses.push(guess);
+    this.setState({status: true, guesses: guesses});
     GuessActions.postGuess(userId, guess);
   }
 
@@ -111,8 +114,14 @@ class GuessForm extends Component {
     Set data once the store returns data.
   */
   guessStatus(event, data) {
+    data.guesses = this.state.guesses;
     console.log(JSON.stringify(data));
-    this.setState({guessStatus: data.guessStatus, coins: data.coins});
+
+    if (data.guessStatus) {
+      this.setState({guessStatus: data.guessStatus, coins: data.coins, guesses: [], nextGuess: 0});
+    } else {
+      this.setState({guessStatus: data.guessStatus, coins: data.coins});
+    }
   }
 
   /*
@@ -125,21 +134,17 @@ class GuessForm extends Component {
       this.setState({status: false});
       return;
     }
-    var generator = rn.generator({
-      min: 0,
-      max: 10,
-      integer: true
-    });
 
-    var intervalId = window.setInterval(this.automatedGuessing, 1200, generator);
+    var intervalId = window.setInterval(this.automatedGuessing, 1200);
     this.setState({intervalId: intervalId, automation: true});
   }
 
   /*
     Automates guessing.
   */
-  automatedGuessing(generator) {
-    this.setState({guess: generator()});
+  automatedGuessing() {
+    var nextGuess = this.state.nextGuess;
+    this.setState({guess: "" + nextGuess, nextGuess: nextGuess + 1});
     this.handleSubmit(null);
   }
 
@@ -149,7 +154,7 @@ class GuessForm extends Component {
   stopGuessing(event) {
     event.preventDefault();
     window.clearInterval(this.state.intervalId);
-    this.setState({intervalId: null, automation: false});
+    this.setState({intervalId: null, automation: false, nextGuess: 0, guesses: []});
   }
 
   /*

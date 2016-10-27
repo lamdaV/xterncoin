@@ -21,6 +21,7 @@ var bank = {
   Initialize
 */
 function initialize() {
+  // For simplicity, the generator will generate a number in [0, 10].
   this.generator = rn.generator({
     min: 0,
     max: 10,
@@ -110,12 +111,14 @@ function processResponse(userId, guess) {
   Handle submit post request.
 */
 app.post("/submit", function(request, response) {
+  // Grab data.
   var dataJSON = request.body;
 
   // Logging.
   console.log("[ POST ] submit ");
   console.log("         userId:  " + dataJSON.userId);
   console.log("         guess:   " + dataJSON.guess);
+  console.log("[ NUMBER ] " + this.number);
 
   // Process and send.
   var userId = dataJSON.userId; // string
