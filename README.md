@@ -19,9 +19,9 @@ func HandleGuess(userId string, guess int) bool {} (Server Code)
 Function which takes a user's id and a user's guess, and returns whether or not their guess was correct.
 
 func GetCoins(userId string) int {} (Server Code)  
-Function which takes a userid and returns how many coins they have.
+Function which takes a userid and returns how many coins they have.  
 **Note:** this is unused as a guess will already return how many coins the user has regardless of success or failure of guesses.
 
 Finally, one more function is required:
 func StartGuessing() {} (Client Code)  
-A function which, when called, pretends to be a user of XternCoin and uses the other two functions you've written to accumulate coins by guessing random numbers in a loop (indefinite is fine) fasdf.
+A function which, when called, pretends to be a user of XternCoin and uses the other two functions you've written to accumulate coins by guessing random numbers in a loop (indefinite is fine)
